@@ -16,4 +16,4 @@ HDSD.txt
 *.jpeg
 *.zip
 *.iml
-
+!src/test/resources/Images/
