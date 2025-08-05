@@ -17,3 +17,4 @@ HDSD.txt
 *.zip
 *.iml
 !src/test/resources/Images/
+!src/test/resources/Images/*
