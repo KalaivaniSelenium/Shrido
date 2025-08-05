@@ -23,9 +23,9 @@ This feature includes Request tests using RESTFul services
   | Key     | Value                         |
   | code    | 200                           |
   | status  | true                          |
-  | message | All Trips...                  |
+  | message | Trip Request Accepted.        |
   
-  	@RequestReject
+  @RequestReject
 	Scenario: TC-03 Request Reject
 	When The User sends a POST request for Request API with the request body from "Request Reject.json" and captures the response body
 	Then The response code for Request API should be "200"

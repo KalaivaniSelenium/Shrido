@@ -1,23 +1,6 @@
 {
-    "start_address":"UMESH SEN, River Heaven, Varachha, Surat, Gujarat, India",
-    "start_lat":21.2323678,
-    "start_long":72.8781932,
-    "end_address":"Mahadev Chowk, Maruti Nandan Society, Mota Varachha, Surat, Gujarat",
-    "end_lat":21.2368298,
-    "end_long":72.8845331,
-    "no_of_seats":1,
-    "start_desired_time":"12:30pm",
-    "start_latest_time":"12:30pm",
-    "start_date":"2024-08-10",
-    "trip_type":"initial",
-    "return_desired_time":"6:00pm",
-    "return_latest_time":"6:30pm",
-    "repeat_week":false,
-    "days_of_week":[],
-    "recurring_trip":false,
-    "no_of_week_repeat":0,
-    "estimate":11,
-    "trip_created_by":3,
-    "notify_favourite_users":[],
-    "notify_text":""
+    "trip_id":233,
+    "start_date":"2025-08-31",
+    "start_desired_time":"08:05am",
+    "start_latest_time":"09:05pm"
 }

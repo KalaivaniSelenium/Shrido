@@ -1,4 +1,4 @@
-package com.thinktimetechno.Warehouse.endpoints;
+package com.thinktimetechno.Shrido.endpoints;
 
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -19,7 +19,6 @@ public class ReviewEndpoints extends BaseEndpoints{
     private RequestSpecification requestSpecification;
     public Response result;
     public static String authToken;  
-    public static String dynamicMobile; 
     
     
     public Response sendGetRequest(String APIName) {
@@ -28,15 +27,16 @@ public class ReviewEndpoints extends BaseEndpoints{
 	   
 	    switch (APIName) {
 	        case "Get User Reviews":
-	            application_ENDPOINT_PATH = "/api/review/47";
+	            application_ENDPOINT_PATH = "/api/review/"+BaseEndpoints.userId;
 	            break;
 	        case "Get Trip Review":
-	            application_ENDPOINT_PATH = "/api/review/trip?trip_id=208";
+	            application_ENDPOINT_PATH = "/api/review/trip?trip_id="+BaseEndpoints.tripId;
 	            break;
 	            
 	    }
 
-	    return result = requestSpecification.get(application_ENDPOINT_PATH);
+	    return result = requestSpecification
+	    		        .get(application_ENDPOINT_PATH);
     	}
     	
     	
@@ -61,12 +61,18 @@ public class ReviewEndpoints extends BaseEndpoints{
                 throw new IllegalArgumentException("Endpoint not defined for file: " + jsonFileName);
         }
 
-        // Prepare request
-        requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
+            // Prepare request
+            requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
 
             String filePath = System.getProperty("user.dir") + "/src/test/resources/Payloads/ReviewPayloads/"+ jsonFileName;
             String jsonContent = new String(Files.readAllBytes(Paths.get(filePath)));
             JSONObject jsonObject = new JSONObject(jsonContent);
+            
+            //Updating the user details to create a review
+            
+            jsonObject.put("to_trip_id", BaseEndpoints.tripId);
+            jsonObject.put("to_user_id", BaseEndpoints.userId);
+            
 
             // Send request with body
             result = requestSpecification

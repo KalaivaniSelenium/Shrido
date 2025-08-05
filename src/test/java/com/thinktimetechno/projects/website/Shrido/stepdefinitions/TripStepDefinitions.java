@@ -2,7 +2,7 @@ package com.thinktimetechno.projects.website.Shrido.stepdefinitions;
 
 import java.io.IOException;
 
-import com.thinktimetechno.Warehouse.endpoints.TripEndpoints;
+import com.thinktimetechno.Shrido.endpoints.TripEndpoints;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Then;
@@ -36,32 +36,25 @@ public class TripStepDefinitions {
 	@When("The User sends a GET request for Trip from {string} and captures the response body")
 	public void the_user_sends_a_get_request_for_trip_from_and_captures_the_response_body(String jsonFile)
 			throws Exception {
-		trip.sendGetRequestWithJson(jsonFile);
+		trip.sendGetRequestwithJsonPayload(jsonFile);
 
 	}
 
 	@When("The User sends a GET request for Trip API from {string} and captures the response body")
-	public void the_user_sends_a_get_request_for_trips_from_and_captures_the_response_body(String APIName) {
+	public void the_user_sends_a_get_request_for_trips_from_and_captures_the_response_body(String APIName) throws Exception {
 		trip.sendGetRequest(APIName);
 
 	}
 
 	@When("The User sends a DELETE request for Trip from {string} and captures the response body")
 	public void the_user_sends_a_delete_request_for_trip_from_and_captures_the_response_body(String APIName) {
-		trip.applicationSalesDeletePayload(APIName);
-
-	}
-
-	@When("The User sends a PUT request for Trip with the request body from {string} and captures the response body")
-	public void the_user_sends_a_put_request_for_trip_with_the_request_body_from_and_captures_the_response_body(
-			String jsonFile) throws IOException {
-		trip.sendPutRequestWithPayload(jsonFile, "UserPayloads");
-
+		trip.sendDeleteRequest(APIName);
 	}
 
 	@When("The User sends a PATCH request for Trip with the request body from {string} and captures the response body")
 	public void the_user_sends_a_patch_request_for_trip_with_the_request_body_from_and_captures_the_response_body(
 			String jsonFile) throws IOException {
+		trip.sendPatchRequestWithPayload(jsonFile);
 
 	}
 

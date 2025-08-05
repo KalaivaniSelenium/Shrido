@@ -78,6 +78,11 @@ public class EmailSendUtils {
         return "<html><body style='font-family:Arial,sans-serif;'>"
                 + "<p>Hi Team,</p>"
                 + "<p>Please find below the execution summary of the recent <strong>API testing:</strong></p>"
+                
+                // Application details
+                + "<p><strong>Application Name:</strong> Shrido </p>"
+                //+ "<p><strong>Application URL:</strong> <a href='https://cpraedcourse.com' style='color:#1E90FF;'>https://cpraedcourse.com</a></p>"
+                + "<p><strong>Execution Date & Time:</strong> " + executionDate + "</p>"
 
                 // Execution Summary Heading
                 + "<h3 style='color:#4682B4; font-size:15px;'>Execution Summary</h3>"

@@ -1,10 +1,10 @@
 {
-    "from_trip_id":208,
-    "to_trip_id":208,
-    "from_user_id":49,
-    "to_user_id":48,
-    "review_stars":"2",
-    "review_badge":[43],
+    "from_trip_id":233,
+    "to_trip_id":234,
+    "from_user_id":290,
+    "to_user_id":291,
+    "review_stars":"5",
+    "review_badge":[67],
     "is_repeat":true,
-    "review_text":"WORST"
+    "review_text":"Lorem Ipsum is simply dummy text of the printing and typesetting industry."
 }

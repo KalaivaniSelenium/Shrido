@@ -1,7 +1,7 @@
 package com.thinktimetechno.hooks;
 
-import com.thinktimetechno.Warehouse.endpoints.TripEndpoints;
-import com.thinktimetechno.Warehouse.endpoints.UserEndpoints;
+import com.thinktimetechno.Shrido.endpoints.TripEndpoints;
+import com.thinktimetechno.Shrido.endpoints.UserEndpoints;
 import com.thinktimetechno.driver.DriverManager;
 import com.thinktimetechno.driver.TargetFactory;
 import com.thinktimetechno.utils.LogUtils;

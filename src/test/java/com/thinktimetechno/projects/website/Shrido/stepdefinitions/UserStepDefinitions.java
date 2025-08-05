@@ -2,7 +2,7 @@ package com.thinktimetechno.projects.website.Shrido.stepdefinitions;
 
 import java.io.IOException;
 
-import com.thinktimetechno.Warehouse.endpoints.UserEndpoints;
+import com.thinktimetechno.Shrido.endpoints.UserEndpoints;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;

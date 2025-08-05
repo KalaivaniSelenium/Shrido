@@ -1,4 +1,4 @@
-package com.thinktimetechno.Warehouse.endpoints;
+package com.thinktimetechno.Shrido.endpoints;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -54,7 +54,11 @@ public class BaseEndpoints {
     public static String affiliateCode;
     public static String email;
     
-
+    //From the Shrido Trip creation API
+    public static int tripId;
+    public static int request_tripId;
+    
+    
       //	protected final String base_url = "https://reqres.in/api/users";
 		protected final String base_url = "https://perfbkend.solarion.ai";
 	public BaseEndpoints() {

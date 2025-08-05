@@ -1,4 +1,4 @@
-package com.thinktimetechno.Warehouse.endpoints;
+package com.thinktimetechno.Shrido.endpoints;
 
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;

@@ -8,31 +8,31 @@ This feature includes Review tests using RESTFul services
 	@CreateReview
 	Scenario: TC-01 Create Review
 	When The User sends a POST request for Review with the request body from "Create Review.json" and captures the response body
-	Then The response code for Review should be "201"
+	Then The response code for Review should be "200"
 	And The response body for Review should contain the following key-value pairs:
   | Key     | Value                         |
-  | code    | 201                           |
+  | code    | 200                           |
   | status  | true                          |
-  | message | Request sent successfully...  |
+  | message | Review Created.               |
 	
-    @GetUserReviews
-   Scenario: TC-02 Get User Reviews
+  @GetUserReviews
+  Scenario: TC-02 Get User Reviews
 	When The User sends a GET request for Review API from "Get User Reviews" and captures the response body
 	Then The response code for Review should be "200"
 	And The response body for Review should contain the following key-value pairs:
   | Key     | Value                             |
   | code    | 200                               |
-  | status  | true                                               |
-  | message | All Reviews Of User.      |
+  | status  | true                              |
+  | message | All Reviews Of User.              |
   
-      @GetTripReview
-   Scenario: TC-03 Get Trip Review
+  @GetTripReview
+  Scenario: TC-03 Get Trip Review
 	When The User sends a GET request for Review API from "Get Trip Review" and captures the response body
 	Then The response code for Review should be "200"
 	And The response body for Review should contain the following key-value pairs:
   | Key     | Value                             |
   | code    | 200                               |
-  | status  | true                                               |
-  | message | All Reviews Of trip.      |
+  | status  | true                              |
+  | message | All Reviews Of trip.              |
  
  
