@@ -103,7 +103,7 @@ public class EmailSendUtils {
         + "<div style='line-height:1.6;'>"
         + "<p>During our recent validation, we observed the following key issues:</p>"
         + "<ul>"
-        + "<li style='margin-left:15px;'><b>500 Internal Server Errors</b>were encountered on several endpoints, indicating potential server-side instability.</li>"
+        + "<li style='margin-left:15px;'><b>500 Internal Server Errors </b>were encountered on several endpoints, indicating potential server-side instability.</li>"
         + "<li style='margin-left:15px;'><b>400 Bad Requests</b> were received even for valid inputs, suggesting inconsistencies in input validation.</li>"
         + "<li style='margin-left:15px;'>These issues should be reviewed and addressed to <b>ensure stable and reliable API behavior.</b></li>"
         + "</ul>"
