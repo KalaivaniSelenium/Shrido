@@ -249,11 +249,7 @@ public class UserEndpoints extends BaseEndpoints{
 	            break;
 	        case "Get User Details Using User Id":
 	            application_ENDPOINT_PATH = "/api/user/details?userId="+ BaseEndpoints.userId;
-	            break;
-	            
-	            
-	            
-	            
+	            break;     
 	    }
 
 	    return result = requestSpecification.get(application_ENDPOINT_PATH);

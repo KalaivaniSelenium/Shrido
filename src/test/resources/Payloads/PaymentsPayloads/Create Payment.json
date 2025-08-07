@@ -1,0 +1,9 @@
+{
+    "transactionAmount":"10.00",
+    "transactionCurrency":"AUD",
+    
+    "cardId":"KPNZ39774269",
+    
+    "payment_as":"passenger",
+    "subscription_plan_id":null
+	}

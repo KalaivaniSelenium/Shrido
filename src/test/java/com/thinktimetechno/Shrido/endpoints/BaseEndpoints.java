@@ -5,18 +5,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
 import static org.hamcrest.Matchers.containsString;
 import com.thinktimetechno.constants.FrameworkConstants;
 import com.thinktimetechno.utils.FailedApiTracker;
@@ -31,8 +26,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import org.json.JSONObject;
 
 
 
@@ -101,6 +94,7 @@ public class BaseEndpoints {
 	        catch (Exception e) {
 	        	String exceptionName = e.getClass().getSimpleName();
 	            FailedApiTracker.logFailure(application_ENDPOINT_PATH, String.valueOf(actualStatusCode + " & "+exceptionName));
+	        	//FailedApiTracker.logFailure(application_ENDPOINT_PATH, String.valueOf(actualStatusCode));
 	            throw e;
 	        }
 

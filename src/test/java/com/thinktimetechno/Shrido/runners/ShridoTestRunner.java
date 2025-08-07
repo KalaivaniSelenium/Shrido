@@ -22,13 +22,12 @@ import org.testng.annotations.Test;
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
         , monochrome = true,
-         tags = //"@Register or @OTPVerify or @ResendOTP "
-         "@UserTest or @TripTest or @RequestTest or @ReviewTest or @MatesTest"
-         //"@Register or @OTPVerify or @ResendOTP or @Addrole or @ProfileSetup or @Referralcode or @AddCar or @DriverACK or @License"
-         		
+         tags = "@Shrido"
+         
+         	
 )
 
-public class UserTestRunner extends AbstractTestNGCucumberTests {
+public class ShridoTestRunner extends AbstractTestNGCucumberTests {
     @Override
     @DataProvider(parallel = false)
     public Object[][] scenarios() {

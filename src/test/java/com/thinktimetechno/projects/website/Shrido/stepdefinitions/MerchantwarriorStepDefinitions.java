@@ -1,0 +1,40 @@
+package com.thinktimetechno.projects.website.Shrido.stepdefinitions;
+
+import java.io.IOException;
+
+import com.thinktimetechno.Shrido.endpoints.GiftCardsEndpoints;
+import com.thinktimetechno.Shrido.endpoints.MerchantwarriorEndpoints;
+import com.thinktimetechno.Shrido.endpoints.ReviewEndpoints;
+
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class MerchantwarriorStepDefinitions {
+
+	private MerchantwarriorEndpoints merchantwarrior;
+
+	public MerchantwarriorStepDefinitions(MerchantwarriorEndpoints merchantwarrior) {
+		this.merchantwarrior = merchantwarrior;
+	}
+
+	@When("The User sends a POST request for Merchantwarrior with the request body from {string} and captures the response body")
+	public void the_user_sends_a_post_request_for_merchantwarrior_with_the_request_body_from_and_captures_the_response_body(
+			String jsonFile) throws IOException {
+		merchantwarrior.sendPostRequestWithPayload(jsonFile);
+
+	}
+
+	@Then("The response code for Merchantwarrior should be {string}")
+	public void the_response_code_for_merchantwarrior_should_be(String statusCode) {
+		merchantwarrior.verifyResponseStatusValue(merchantwarrior.result, Integer.parseInt(statusCode));
+	}
+
+	@Then("The response body for Merchantwarrior should contain the following key-value pairs:")
+	public void the_response_body_for_merchantwarrior_should_contain_the_following_key_value_pairs(DataTable dataTable) {
+		merchantwarrior.verifyResponseKeyValues(dataTable, merchantwarrior.result);
+	}
+
+
+
+}

@@ -59,7 +59,7 @@ public class EmailSendUtils {
                     .append("<table style='border-collapse: collapse; width: 60%; margin-bottom:15px;'>") // Added space below
                     .append("<tr style='background-color:black; color:#FFD700; text-align:center;'>") // Black bg + Gold text
                     .append("<th style='border: 1px solid #ccc; padding: 8px; text-align:center;'>API Name</th>")
-                    .append("<th style='border: 1px solid #ccc; padding: 8px; text-align:center;'>Status Code</th>")
+                    .append("<th style='border: 1px solid #ccc; padding: 8px; text-align:center; width: 150px;'>Status Code</th>")
                     .append("</tr>");
 
             for (FailedAPI api : failedList) {

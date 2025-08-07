@@ -135,7 +135,7 @@ This feature includes User tests using RESTFul services
   | status  | true                              |
   | message | Identity data add...              |
   
-@EmailVerify
+  @EmailVerify
 	Scenario: TC-14 Submit Email Verification
 	When The User sends a GET request for User from "Email Verification" and captures the response body
 	Then The response code for User should be "200"
@@ -206,7 +206,7 @@ Scenario: TC-20 Add Driver Price Value
   | message | Custom rates updated successfully      |
   
   @TotalPoints
- Scenario: TC-21 Get User Total Points
+  Scenario: TC-21 Get User Total Points
 	When The User sends a GET request for User from "Get User Total Points" and captures the response body
 	Then The response code for User should be "200"
 	And The response body for User should contain the following key-value pairs:
@@ -216,7 +216,7 @@ Scenario: TC-20 Add Driver Price Value
   | message | User`s Total Points.              |
   
   @UserDetailsUsingUserId
-   Scenario: TC-22 Get User Details Using User Id
+  Scenario: TC-22 Get User Details Using User Id
 	When The User sends a GET request for User from "Get User Details Using User Id" and captures the response body
 	Then The response code for User should be "200"
 	And The response body for User should contain the following key-value pairs:
@@ -226,7 +226,7 @@ Scenario: TC-20 Add Driver Price Value
   | message | All Data of User...               |
   
   @DeleteUser
- Scenario: TC-23 Delete User
+  Scenario: TC-23 Delete User
 	When The User sends a DELETE request for User from "Delete User" and captures the response body
 	Then The response code for User should be "200"
 	And The response body for User should contain the following key-value pairs:
@@ -235,7 +235,7 @@ Scenario: TC-20 Add Driver Price Value
   | status  | true                              |
   | message | All Data of User...               |
   
-    @LogOut
+  @LogOut
   Scenario: TC-24 LogOut
 	When The User sends a POST request for User with the request body from "LogOut.json" and captures the response body
 	Then The response code for User should be "200"
