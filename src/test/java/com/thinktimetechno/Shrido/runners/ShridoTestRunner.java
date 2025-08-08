@@ -22,7 +22,7 @@ import org.testng.annotations.Test;
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
         , monochrome = true,
-         tags = "@Shrido"
+         tags = "@Register or @EmailVerify"
          
          	
 )

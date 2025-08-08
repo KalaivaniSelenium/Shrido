@@ -2,11 +2,7 @@ package com.thinktimetechno.projects.website.Shrido.stepdefinitions;
 
 import java.io.IOException;
 
-import com.thinktimetechno.Shrido.endpoints.GiftCardsEndpoints;
 import com.thinktimetechno.Shrido.endpoints.MSG91Endpoints;
-import com.thinktimetechno.Shrido.endpoints.MerchantwarriorEndpoints;
-import com.thinktimetechno.Shrido.endpoints.ReviewEndpoints;
-
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

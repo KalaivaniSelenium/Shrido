@@ -55,7 +55,7 @@ public class EmailSendUtils {
 
         String executionDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd 'at' hh:mm a"));
         String companyName = "ThinkTime Automation Team";
-
+        String environment = "Staging";
 
         // Build Failed APIs Table
         StringBuilder failedApiTable = new StringBuilder();
@@ -83,6 +83,7 @@ public class EmailSendUtils {
         + "<p>Please find below the execution summary of the recent <strong>API testing:</strong></p>"
         + "<p><strong>Application Name:</strong> Shrido</p>"
         + "<p><strong>Execution Date & Time:</strong> " + executionDate + "</p>"
+        + "<p><strong>Environment:</strong> " + environment + "</p>"
         + "<h3 style='color:#4b2e70; font-size:16px;'>Execution Summary</h3>"
         + "<table style='border-collapse: collapse; width: 45%; box-shadow: 0 0 10px #ccc; border-radius:8px; overflow:hidden;'>"
         + "<thead style='background-color:#00B2A9; color:white;'>"
@@ -97,7 +98,11 @@ public class EmailSendUtils {
         + "<td style='padding:8px; border: 1px solid #ddd; color:green; font-weight:bold;'>" + passed + "</td>"
         + "<td style='padding:8px; border: 1px solid #ddd; color:red; font-weight:bold;'>" + failed + "</td>"
         + "</tr></tbody></table>"
-        + "<br/>"
+        
+        // Failure percentage (modified note)
+        + "<p style='margin-top:10px;'><strong>" + String.format("%.0f", failPercent)
+        + "% of the APIs failed during testing.</strong></p>"
+        
         + (!failedList.isEmpty() ? failedApiTable.toString() : "")
         + "<br/><h3 style='color:#4b2e70; font-size:16px;'>Summary of Observations</h3>"
         + "<div style='line-height:1.6;'>"
