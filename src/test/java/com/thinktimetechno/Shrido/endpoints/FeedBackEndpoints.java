@@ -32,7 +32,7 @@ public class FeedBackEndpoints extends BaseEndpoints {
 			default:
 				throw new IllegalArgumentException("Endpoint not defined for file: " + jsonFileName);
 			}
-
+			 this.apiNameIdentifier = jsonFileName.replace(".json", "");
 			// Prepare request
 			requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
 
@@ -45,11 +45,11 @@ public class FeedBackEndpoints extends BaseEndpoints {
 					.body(jsonObject.toString())
 					.post(application_ENDPOINT_PATH);
 
-		} catch (Exception e) {
-			String exceptionName = e.getClass().getSimpleName();
-			FailedApiTracker.logFailure(application_ENDPOINT_PATH, exceptionName);
-			System.err.println("Error occurred while sending POST request for: " + jsonFileName);
-			throw e;
-		}
+		}catch (Exception e) {
+            String exceptionName = e.getClass().getSimpleName();
+            FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+                                        exceptionName);
+            throw e;
+        }
 	}
 }

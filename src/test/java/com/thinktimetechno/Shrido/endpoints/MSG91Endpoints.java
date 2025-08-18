@@ -20,7 +20,7 @@ public class MSG91Endpoints extends BaseEndpoints {
 
 
 	public void sendPostRequestWithPayload(String jsonFileName) throws IOException {
-
+		
 		try {
 
 			switch (jsonFileName) {
@@ -34,10 +34,22 @@ public class MSG91Endpoints extends BaseEndpoints {
 			default:
 				throw new IllegalArgumentException("Endpoint not defined for file: " + jsonFileName);
 			}
+			 this.apiNameIdentifier = jsonFileName.replace(".json", "");
+		// Prepare request
+		requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH,jsonFileName);
 
-			// Prepare request
-			requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
+			
+		  if (application_ENDPOINT_PATH.equals("/api/v5/sms/addTemplate")) {
+		    result = requestSpecification
+		            .multiPart("template", "Your OTP for sharido application is :")
+		            .multiPart("sender_id", "Sender ID")
+		            .multiPart("template_name", "Type Template Name")
+		            .multiPart("dlt_template_id", "")
+		            .multiPart("smsType", "NORMAL")
+		            .post(application_ENDPOINT_PATH);
+		}
 
+		  else {
 			String filePath = System.getProperty("user.dir") + "/src/test/resources/Payloads/MSG91Payloads/"
 					+ jsonFileName;
 			String jsonContent = new String(Files.readAllBytes(Paths.get(filePath)));
@@ -45,12 +57,13 @@ public class MSG91Endpoints extends BaseEndpoints {
 			result = requestSpecification
 					.body(jsonObject.toString())
 					.post(application_ENDPOINT_PATH);
+		  }
 
 		} catch (Exception e) {
-			String exceptionName = e.getClass().getSimpleName();
-			FailedApiTracker.logFailure(application_ENDPOINT_PATH, exceptionName);
-			System.err.println("Error occurred while sending POST request for: " + jsonFileName);
-			throw e;
-		}
+            String exceptionName = e.getClass().getSimpleName();
+            FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+                                        exceptionName);
+            throw e;
+        }
 	}
 }

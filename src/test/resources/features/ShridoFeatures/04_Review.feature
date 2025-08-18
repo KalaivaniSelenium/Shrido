@@ -3,7 +3,7 @@ Feature: Review Tests
 This feature includes Review tests using RESTFul services
 
 	Background:
-	Given The User sets the base URL as "https://api-staging.shrido.com.au" for User
+	Given The User sets the base URL as "https://api-staging.shrido.com.au" for Review
 	
 	@CreateReview
 	Scenario: TC-01 Create Review

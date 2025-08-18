@@ -3,7 +3,7 @@ Feature: FeedBack Tests
 This feature includes FeedBack tests using RESTFul services
 
 	Background:
-	Given The User sets the base URL as "https://api-staging.shrido.com.au" for User
+	Given The User sets the base URL as "https://api-staging.shrido.com.au" for Feedback
 
 	Scenario: TC-01 Add FeedBack
 	When The User sends a POST request for FeedBack with the request body from "Add FeedBack.json" and captures the response body

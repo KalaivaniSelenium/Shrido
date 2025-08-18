@@ -44,7 +44,7 @@ public class TripEndpoints extends BaseEndpoints{
             default:
                 throw new IllegalArgumentException("Endpoint not defined for file: " + jsonFileName);
         }
-
+        this.apiNameIdentifier = jsonFileName.replace(".json", "");
         // Prepare request
         requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
 
@@ -86,11 +86,11 @@ public class TripEndpoints extends BaseEndpoints{
         }
             }
     	}
-        catch (Exception e) {
-    		    String exceptionName = e.getClass().getSimpleName();
-    		    FailedApiTracker.logFailure(application_ENDPOINT_PATH, exceptionName);
-    		    System.err.println("Error occurred while sending POST request for: " + jsonFileName);
-    		    throw e;
+    	catch (Exception e) {
+            String exceptionName = e.getClass().getSimpleName();
+            FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+                                        exceptionName);
+            throw e;
         }
     }
     
@@ -104,7 +104,7 @@ public class TripEndpoints extends BaseEndpoints{
 	            application_ENDPOINT_PATH = "/api/trip/trip_dates";
 	            break;  
 	    }
-
+	    this.apiNameIdentifier = APIName;
 	    return result = requestSpecification
 	    		       .get(application_ENDPOINT_PATH);
     	}
@@ -128,6 +128,7 @@ public class TripEndpoints extends BaseEndpoints{
     	                throw new IllegalArgumentException("PATCH endpoint not defined for file: " + jsonFileName);
     	        }
 
+    	        this.apiNameIdentifier = jsonFileName.replace(".json", "");
     	        // Prepare request
     	        requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
 
@@ -157,11 +158,11 @@ public class TripEndpoints extends BaseEndpoints{
     	        return result;
     	    }
     	    catch (Exception e) {
-    	        String exceptionName = e.getClass().getSimpleName();
-    	        FailedApiTracker.logFailure(application_ENDPOINT_PATH, exceptionName);
-    	        System.err.println("Error occurred while sending PATCH request for: " + jsonFileName);
-    	        throw e;
-    	    }
+                String exceptionName = e.getClass().getSimpleName();
+                FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+                                            exceptionName);
+                throw e;
+            }
 	}
     
     	
@@ -173,16 +174,17 @@ public class TripEndpoints extends BaseEndpoints{
 			application_ENDPOINT_PATH="/api/trip/"+BaseEndpoints.tripId;
 			 break;
 		}
+		this.apiNameIdentifier = APIName;
 			result = requestSpecification
 					.delete(application_ENDPOINT_PATH);
 	     	return result;
             }
-    catch (Exception e) {
-	    String exceptionName = e.getClass().getSimpleName();
-	    FailedApiTracker.logFailure(application_ENDPOINT_PATH, exceptionName);
-	    System.err.println("Error occurred while sending POST request for: " + APIName);
-	    throw e;
-}
+    	catch (Exception e) {
+            String exceptionName = e.getClass().getSimpleName();
+            FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+                                        exceptionName);
+            throw e;
+        }
     }
 
 
@@ -196,7 +198,7 @@ public class TripEndpoints extends BaseEndpoints{
 	            default:
 	                throw new IllegalArgumentException("PUT endpoint not defined for file: " + jsonFile);
 	        }
-
+	        this.apiNameIdentifier = jsonFile.replace(".json", "");
 	        // Prepare request
 	        requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
 
@@ -214,10 +216,10 @@ public class TripEndpoints extends BaseEndpoints{
 	        System.out.println("Response: " + result.getBody().asPrettyString());
 	        }
 	      
-		    catch (Exception e) {
-			    String exceptionName = e.getClass().getSimpleName();
-			    FailedApiTracker.logFailure(application_ENDPOINT_PATH, exceptionName);
-			    System.err.println("Error occurred while sending POST request for: " + jsonFile);
-			    throw e;
-	    }
+		catch (Exception e) {
+            String exceptionName = e.getClass().getSimpleName();
+            FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+                                        exceptionName);
+            throw e;
+        }
 	}}

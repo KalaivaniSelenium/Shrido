@@ -44,10 +44,26 @@ public class SettingsEndpoints extends BaseEndpoints{
             default:
                 throw new IllegalArgumentException("Endpoint not defined for file: " + jsonFileName);
         }
+        this.apiNameIdentifier = jsonFileName.replace(".json", "");
+        // Prepare request
+        requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
 
-	        // Prepare request
-	        requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
+        
+        if(application_ENDPOINT_PATH.equals("/api/settings/predefine_message")) {
+        		    result = requestSpecification
+        		            .multiPart("text", "")
+        		            .multiPart("review", "")
+        		            .multiPart("type", "trip_request_notification")
+        		            .post(application_ENDPOINT_PATH);
+        		}
+        else if(application_ENDPOINT_PATH.equals("/api/settings/add-email-templates")) {
+		    result = requestSpecification
+		            .multiPart("type", "feedback")
+		            .post(application_ENDPOINT_PATH);
+        }
+        else {
 
+	        
             //Read payload and modify if needed
         	
             String filePath = System.getProperty("user.dir") + "/src/test/resources/Payloads/SettingsPayloads/"+ jsonFileName;
@@ -58,17 +74,17 @@ public class SettingsEndpoints extends BaseEndpoints{
             // Send request with body
             result = requestSpecification
                     .body(jsonObject.toString())
-                    .post(application_ENDPOINT_PATH);
-            
+                   .post(application_ENDPOINT_PATH);
+        }
          // Print response
             System.out.println("Response: " + result.getBody().asPrettyString());
        
 
     	}catch (Exception e) {
-    		    String exceptionName = e.getClass().getSimpleName();
-    		    FailedApiTracker.logFailure(application_ENDPOINT_PATH, exceptionName);
-    		    System.err.println("Error occurred while sending POST request for: " + jsonFileName);
-    		    throw e;
+            String exceptionName = e.getClass().getSimpleName();
+            FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+                                        exceptionName);
+            throw e;
         }
     }
     
@@ -81,20 +97,21 @@ public class SettingsEndpoints extends BaseEndpoints{
 	            application_ENDPOINT_PATH = "/api/settings";
 	            break;       
 	    }
+	    this.apiNameIdentifier = APIName;
 
 	    return result = requestSpecification
 	    		       .get(application_ENDPOINT_PATH);
     	}
 	    
-	    catch (Exception e) {
-		    String exceptionName = e.getClass().getSimpleName();
-		    FailedApiTracker.logFailure(application_ENDPOINT_PATH, exceptionName);
-		    System.err.println("Error occurred while sending POST request for: " + APIName);
-		    throw e;
-    }
+    	catch (Exception e) {
+            String exceptionName = e.getClass().getSimpleName();
+            FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+                                        exceptionName);
+            throw e;
+        }
 	}
     
-    public void sendPutRequestWithPayload(String jsonFileName, String PayloadFolderName) throws IOException {
+    public void sendPutRequestWithPayload(String jsonFileName) throws IOException {
     	
     	try {
         switch (jsonFileName) {
@@ -104,27 +121,23 @@ public class SettingsEndpoints extends BaseEndpoints{
             default:
                 throw new IllegalArgumentException("PUT endpoint not defined for file: " + jsonFileName);
         }
-
+        this.apiNameIdentifier = jsonFileName.replace(".json", "");
         // Prepare request
         requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
-
-        	
-        // Read JSON payload file
-        String filePath = System.getProperty("user.dir") + "/src/test/resources/Payloads/SettingsPayloads/"+ jsonFileName;
-        String jsonContent = new String(Files.readAllBytes(Paths.get(filePath)));
-        JSONObject jsonObject = new JSONObject(jsonContent);
         
-        // Send PUT request
-        result = requestSpecification
-                .body(jsonObject.toString())
-                .put(application_ENDPOINT_PATH);
+        if (application_ENDPOINT_PATH.equals("/api/settings/update-email-templates")) {
+            result = requestSpecification
+                    .multiPart("type", "feedback") 
+                    .put(application_ENDPOINT_PATH);
+        }
         
+       
         System.out.println("Response: " + result.getBody().asPrettyString());}
-	    catch (Exception e) {
-		    String exceptionName = e.getClass().getSimpleName();
-		    FailedApiTracker.logFailure(application_ENDPOINT_PATH, exceptionName);
-		    System.err.println("Error occurred while sending POST request for: " + jsonFileName);
-		    throw e;
-    }}
+    	catch (Exception e) {
+            String exceptionName = e.getClass().getSimpleName();
+            FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+                                        exceptionName);
+            throw e;
+        }}
     	
 }

@@ -3,7 +3,7 @@ Feature: Trip Tests
 This feature includes Trip tests using RESTFul services
 
 	Background:
-	Given The User sets the base URL as "https://api-staging.shrido.com.au" for User
+	Given The User sets the base URL as "https://api-staging.shrido.com.au" for Trip
 	
 	@CreateTrip
 	Scenario: TC-01 Create Trip

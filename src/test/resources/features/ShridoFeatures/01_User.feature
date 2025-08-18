@@ -143,7 +143,7 @@ This feature includes User tests using RESTFul services
   | Key     | Value                             |
   | code    | 200                               |
   | status  | true                              |
-  | message | Email Verified Succesfully              |
+  | message | Email Verified Successfully              |
   
   @ResendVerify
 	Scenario: TC-15 Submit Resend Verification Link

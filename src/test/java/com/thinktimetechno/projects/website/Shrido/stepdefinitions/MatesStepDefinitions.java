@@ -5,8 +5,10 @@ import java.io.IOException;
 import com.thinktimetechno.Shrido.endpoints.MatesEndpoints;
 
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.RestAssured;
 
 public class MatesStepDefinitions {
 
@@ -14,6 +16,11 @@ public class MatesStepDefinitions {
 
 	public MatesStepDefinitions(MatesEndpoints mates) {
 		this.mates = mates;
+	}
+	
+	@Given("The User sets the base URL as {string} for Mates")
+	public void the_user_sets_the_base_url_as_for_Mates(String baseUrl) {
+    	RestAssured.baseURI = baseUrl;
 	}
 
 	@When("The User sends a POST request for Mates with the request body from {string} and captures the response body")

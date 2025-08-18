@@ -1,9 +1,9 @@
 {
     "subscription_plan_id":1,
-    "type":2, // free_plan_for_driver = 0, driver_purchase_plan = 2, passenger_purchase_plan = 3
+    "type":2, 
     "amount":12,
-    "period":1, // free_plan_for_driver = null otherwise 1, 2, 3 values in month
-    "free_trial_period":null, //  value in days if plan is not free then set value null
+    "period":1, 
+    "free_trial_period":null, 
     "ios_plan_id":"one.month.com.shrido.app",
     "android_plan_id":"com-shrido-app-one-month"
 }

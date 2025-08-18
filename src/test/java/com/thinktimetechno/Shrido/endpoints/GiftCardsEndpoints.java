@@ -29,17 +29,18 @@ public class GiftCardsEndpoints extends BaseEndpoints {
 				application_ENDPOINT_PATH = "/api/gift-card";
 				break;
 			}
-
+			
+			this.apiNameIdentifier = APIName;
 			return result = requestSpecification
 					        .get(application_ENDPOINT_PATH);
 		}
 
 		catch (Exception e) {
-			String exceptionName = e.getClass().getSimpleName();
-			FailedApiTracker.logFailure(application_ENDPOINT_PATH, exceptionName);
-			System.err.println("Error occurred while sending GET request for: " + APIName);
-			throw e;
-		}
+            String exceptionName = e.getClass().getSimpleName();
+            FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+                                        exceptionName);
+            throw e;
+        }
 	}
 
 	public void sendPostRequestWithPayload(String jsonFileName) throws IOException {
@@ -54,7 +55,7 @@ public class GiftCardsEndpoints extends BaseEndpoints {
 			default:
 				throw new IllegalArgumentException("Endpoint not defined for file: " + jsonFileName);
 			}
-
+			 this.apiNameIdentifier = jsonFileName.replace(".json", "");
 			// Prepare request
 			requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
 
@@ -68,10 +69,10 @@ public class GiftCardsEndpoints extends BaseEndpoints {
 					.post(application_ENDPOINT_PATH);
 
 		} catch (Exception e) {
-			String exceptionName = e.getClass().getSimpleName();
-			FailedApiTracker.logFailure(application_ENDPOINT_PATH, exceptionName);
-			System.err.println("Error occurred while sending POST request for: " + jsonFileName);
-			throw e;
-		}
+            String exceptionName = e.getClass().getSimpleName();
+            FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+                                        exceptionName);
+            throw e;
+        }
 	}
 }

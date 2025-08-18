@@ -3,7 +3,7 @@ Feature: Request Tests
 This feature includes Request tests using RESTFul services
 
 	Background:
-	Given The User sets the base URL as "https://api-staging.shrido.com.au" for User
+	Given The User sets the base URL as "https://api-staging.shrido.com.au" for Request
 	
 	@SendtripRequest
 	Scenario: TC-01 Send trip Request
@@ -45,7 +45,7 @@ This feature includes Request tests using RESTFul services
   | status  | true                          |
   | message | All Trips.                    |
   
-  	@AllConfirmedRequestofUser
+  @AllConfirmedRequestofUser
 	Scenario: TC-05 All Confirmed Request of User
 	When The User sends a POST request for Request API with the request body from "All Confirmed Request of User.json" and captures the response body
 	Then The response code for Request API should be "200"

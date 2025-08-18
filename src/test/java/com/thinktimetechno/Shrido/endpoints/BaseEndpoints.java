@@ -38,6 +38,7 @@ public class BaseEndpoints {
 	public static final int PUT_REQUEST = 3;
 	public static String tokenkey=null;
 	protected String application_ENDPOINT_PATH = "";
+	protected String apiNameIdentifier = "";
 	
 	//From the Shrido registration API
 	public static String inheritAuthToken;
@@ -65,41 +66,47 @@ public class BaseEndpoints {
 		assertThat(keyValue, is(val));
 	}
 	public void verifyResponseKeyValues(DataTable dataTable, Response response) {
-		int actualStatusCode = response.getStatusCode(); 
-		try {
-	    List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
+	    int actualStatusCode = response.getStatusCode(); 
+	    try {
+	        List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
 
-	    for (Map<String, String> row : rows) {
-	        String key = row.get("Key");
-	        String expectedValue = row.get("Value");
+	        for (Map<String, String> row : rows) {
+	            String key = row.get("Key");
+	            String expectedValue = row.get("Value");
 
-	        String actualValue = response.jsonPath().getString(key);
-	        
-	        if (actualValue == null) {
-	            actualValue = response.jsonPath().getString("data." + key);
-	        }
+	            String actualValue = response.jsonPath().getString(key);
 
-	        if (actualValue != null) actualValue = actualValue.trim();
-	        if (expectedValue != null) expectedValue = expectedValue.trim();
+	            if (actualValue == null) {
+	                actualValue = response.jsonPath().getString("data." + key);
+	            }
 
-	     
-	        if ("message".equalsIgnoreCase(key) && !expectedValue.isEmpty()) {
+	            if (actualValue != null) actualValue = actualValue.trim();
+	            if (expectedValue != null) expectedValue = expectedValue.trim();
+
+	            if ("message".equalsIgnoreCase(key) && !expectedValue.isEmpty()) {
 	                assertThat("Key: " + key, actualValue, containsString(expectedValue));
-	        } else {
+	            } else {
 	                assertThat("Key: " + key, actualValue, is(expectedValue));
 	            }
-	    }
-		}
-	        
-	        catch (Exception e) {
-	        	String exceptionName = e.getClass().getSimpleName();
-	            FailedApiTracker.logFailure(application_ENDPOINT_PATH, String.valueOf(actualStatusCode + " & "+exceptionName));
-	        	//FailedApiTracker.logFailure(application_ENDPOINT_PATH, String.valueOf(actualStatusCode));
-	            throw e;
 	        }
-
+	    } 
+	    catch (AssertionError e) {
+	        // Assertion failure
+	        FailedApiTracker.logFailure(
+	            apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+	            actualStatusCode + " & " + e.getClass().getSimpleName()
+	        );
+	        throw e;
+	    } 
+	    catch (Exception e) {
+	        // Any other runtime exception
+	        FailedApiTracker.logFailure(
+	            apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+	            actualStatusCode + " & " + e.getClass().getSimpleName()
+	        );
+	        throw e;
+	    }
 	}
-	
 	public String verifyTokenResponseKeyValues(String key,Response r) {
 		tokenkey = r.jsonPath().getString(key);
 		return tokenkey;
@@ -119,7 +126,7 @@ public class BaseEndpoints {
 	        assertThat(response.getStatusCode(), is(expectedCode));
 	    } catch (AssertionError e) {
 	        // Log the failure
-	    	FailedApiTracker.logFailure(application_ENDPOINT_PATH, String.valueOf(response.getStatusCode()));
+	    	FailedApiTracker.logFailure(apiNameIdentifier, String.valueOf(response.getStatusCode()));
 	        throw e; // Still fail the test
 	    }
 	}
@@ -192,7 +199,10 @@ public class BaseEndpoints {
 	    	    "/api/car/add_car",
 	    	    "/api/driver/add_license",
 	    	    "/api/user/add_identification",
-	    	    "/api/user/profile_update"
+	    	    "/api/user/profile_update",
+	    	    "/api/settings/add-email-templates",
+	    	    "/api/settings/predefine_message",
+	    	    "/api/settings/update-email-templates"
 	    	);
 	    if (!multipartEndpoints.contains(endpointPath)) {
 	        r.header("Content-Type", "application/json");
@@ -200,6 +210,28 @@ public class BaseEndpoints {
 	    }
 
 	    if (!endpointPath.equals("/api/user/register") && BaseEndpoints.inheritAuthToken != null) {
+	        r.header("x-access-token", BaseEndpoints.inheritAuthToken);
+	    }
+
+	    return r;
+	}
+	
+	public RequestSpecification getRequestWithJSONHeader(String endpointPath,String jsonfile) {
+	    RequestSpecification r = RestAssured.given();
+
+	    Set<String> multipartJsonfile = Set.of(
+	    	 "Verify_Card.json",
+	    	 "Get Card Info.json",
+	    	 "New Request.json",
+	    	 "Add Sms Template.json"
+	    	);
+	    
+	    if (!multipartJsonfile.contains(jsonfile)) {
+	        r.header("Content-Type", "application/json");
+	        r.header("Accept", "application/json");
+	    }
+
+	    if (BaseEndpoints.inheritAuthToken != null) {
 	        r.header("x-access-token", BaseEndpoints.inheritAuthToken);
 	    }
 

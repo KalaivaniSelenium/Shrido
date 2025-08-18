@@ -4,8 +4,10 @@ import java.io.IOException;
 
 import com.thinktimetechno.Shrido.endpoints.MerchantwarriorEndpoints;
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.RestAssured;
 
 public class MerchantwarriorStepDefinitions {
 
@@ -13,6 +15,11 @@ public class MerchantwarriorStepDefinitions {
 
 	public MerchantwarriorStepDefinitions(MerchantwarriorEndpoints merchantwarrior) {
 		this.merchantwarrior = merchantwarrior;
+	}
+	
+	@Given("The User sets the base URL as {string} for Merchant")
+	public void the_user_sets_the_base_url_as_for_Merchant(String baseUrl) {
+    	RestAssured.baseURI = baseUrl;
 	}
 
 	@When("The User sends a POST request for Merchantwarrior with the request body from {string} and captures the response body")

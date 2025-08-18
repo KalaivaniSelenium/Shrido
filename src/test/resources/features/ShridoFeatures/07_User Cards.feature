@@ -16,7 +16,7 @@ This feature includes User Cards tests using RESTFul services
       | message | All Cards .              |
 
   @AddUserCard
-  Scenario: TC-03 Add New User Card
+  Scenario: TC-02 Add New User Card
   When The User sends a POST request for User Cards with the request body from "Add Card.json" and captures the response body
   Then The response code for User Cards should be "200"
   And The response body for User Cards should contain the following key-value pairs:
@@ -26,7 +26,7 @@ This feature includes User Cards tests using RESTFul services
       | message | Card added successfully.       |
 
   @ChangeCardExpiry
-  Scenario: TC-04 Update User Card
+  Scenario: TC-03 Update User Card
   When The User sends a POST request for User Cards with the request body from "Change Card Expiry.json" and captures the response body
   Then The response code for User Cards should be "200"
   And The response body for User Cards should contain the following key-value pairs:
@@ -36,7 +36,7 @@ This feature includes User Cards tests using RESTFul services
       | message | Card expiry date was updated successfully    |
 
   @RemoveCard
-  Scenario: TC-05 Remove User Card
+  Scenario: TC-04 Remove User Card
   When The User sends a POST request for User Cards with the request body from "Remove Card.json" and captures the response body
   Then The response code for User Cards should be "200"
   And The response body for User Cards should contain the following key-value pairs:

@@ -26,7 +26,7 @@ public class EmailConfig {
 
     public static final String FROM = "priya@thinktime.in";
     public static final String PASSWORD = "Priya@2023";
-//"anushka@cpraedcourse.com","shankar@thinktime.in","sunnykumar@cpraedcourse.com","hieu@cpraedcourse.com","ranjan@learntastic.com"
+   //"anushka@cpraedcourse.com","shankar@thinktime.in","sunnykumar@cpraedcourse.com","hieu@cpraedcourse.com","ranjan@learntastic.com"
     public static final String[] TO = {"kalai@thinktime.in"};
     public static final String SUBJECT = FrameworkConstants.REPORT_TITLE + " | "+ executionDateOnly;
 }

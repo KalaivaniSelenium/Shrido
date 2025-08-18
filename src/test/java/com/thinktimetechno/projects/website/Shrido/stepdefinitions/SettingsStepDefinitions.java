@@ -5,8 +5,10 @@ import java.io.IOException;
 import com.thinktimetechno.Shrido.endpoints.SettingsEndpoints;
 
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.RestAssured;
 
 public class SettingsStepDefinitions {
 
@@ -15,6 +17,11 @@ public class SettingsStepDefinitions {
 	public SettingsStepDefinitions(SettingsEndpoints settings) {
 		this.settings = settings;
 	}
+	
+	@Given("The User sets the base URL as {string} for Settings")
+	public void The_User_sets_the_base_URL_as_for_Settings(String baseUrl) {
+    	RestAssured.baseURI = baseUrl;
+    } 
 
 	@When("The User sends a POST request for Settings with the request body from {string} and captures the response body")
 	public void the_user_sends_a_post_request_for_settings_with_the_request_body_from_and_captures_the_response_body(
@@ -42,7 +49,7 @@ public class SettingsStepDefinitions {
 	@When("The User sends a PUT request for Settings with the request body from {string} and captures the response body")
 	public void the_user_sends_a_put_request_for_settings_with_the_request_body_from_and_captures_the_response_body(
 			String jsonFile) throws IOException {
-		settings.sendPutRequestWithPayload(jsonFile, "UserPayloads");
+		settings.sendPutRequestWithPayload(jsonFile);
 
 	}
 }

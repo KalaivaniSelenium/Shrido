@@ -76,6 +76,7 @@ public class UserEndpoints extends BaseEndpoints{
             default:
                 throw new IllegalArgumentException("Endpoint not defined for file: " + jsonFileName);
         }
+        this.apiNameIdentifier = jsonFileName.replace(".json", "");
 
         // Prepare request
         requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
@@ -216,10 +217,10 @@ public class UserEndpoints extends BaseEndpoints{
             }
         }
     	}catch (Exception e) {
-    		    String exceptionName = e.getClass().getSimpleName();
-    		    FailedApiTracker.logFailure(application_ENDPOINT_PATH, exceptionName);
-    		    System.err.println("Error occurred while sending POST request for: " + jsonFileName);
-    		    throw e;
+            String exceptionName = e.getClass().getSimpleName();
+            FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+                                        exceptionName);
+            throw e;
         }
     }
     
@@ -252,15 +253,15 @@ public class UserEndpoints extends BaseEndpoints{
 	            break;     
 	    }
 
+	    this.apiNameIdentifier = APIName;
 	    return result = requestSpecification.get(application_ENDPOINT_PATH);
     	}
-	    
-	    catch (Exception e) {
-		    String exceptionName = e.getClass().getSimpleName();
-		    FailedApiTracker.logFailure(application_ENDPOINT_PATH, exceptionName);
-		    System.err.println("Error occurred while sending POST request for: " + APIName);
-		    throw e;
-    }
+    	catch (Exception e) {
+            String exceptionName = e.getClass().getSimpleName();
+            FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+                                        exceptionName);
+            throw e;
+        }
 	}
     
     public void sendPutRequestWithPayload(String jsonFileName, String PayloadFolderName) throws IOException {
@@ -273,6 +274,7 @@ public class UserEndpoints extends BaseEndpoints{
             default:
                 throw new IllegalArgumentException("PUT endpoint not defined for file: " + jsonFileName);
         }
+        this.apiNameIdentifier = jsonFileName.replace(".json", "");
 
         // Prepare request
         requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
@@ -296,12 +298,12 @@ public class UserEndpoints extends BaseEndpoints{
                 .put(application_ENDPOINT_PATH);
         }
         System.out.println("Response: " + result.getBody().asPrettyString());}
-	    catch (Exception e) {
-		    String exceptionName = e.getClass().getSimpleName();
-		    FailedApiTracker.logFailure(application_ENDPOINT_PATH, exceptionName);
-		    System.err.println("Error occurred while sending POST request for: " + jsonFileName);
-		    throw e;
-    }}
+    	catch (Exception e) {
+            String exceptionName = e.getClass().getSimpleName();
+            FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+                                        exceptionName);
+            throw e;
+        }}
     	
     public Response applicationSalesDeletePayload(String APIName ) {
     	try {
@@ -313,13 +315,14 @@ public class UserEndpoints extends BaseEndpoints{
 			break;
 
 		}
+		this.apiNameIdentifier = APIName;
 			result=requestSpecification.delete(application_ENDPOINT_PATH);
 	     	return result;
-            }
-    catch (Exception e) {
-	    String exceptionName = e.getClass().getSimpleName();
-	    FailedApiTracker.logFailure(application_ENDPOINT_PATH, exceptionName);
-	    System.err.println("Error occurred while sending POST request for: " + APIName);
-	    throw e;
-}
+    	}
+	     	catch (Exception e) {
+	            String exceptionName = e.getClass().getSimpleName();
+	            FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+	                                        exceptionName);
+	            throw e;
+	        }
     }}

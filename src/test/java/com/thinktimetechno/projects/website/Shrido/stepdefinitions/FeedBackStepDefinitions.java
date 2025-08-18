@@ -4,8 +4,10 @@ import java.io.IOException;
 
 import com.thinktimetechno.Shrido.endpoints.FeedBackEndpoints;
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.RestAssured;
 
 public class FeedBackStepDefinitions {
 
@@ -13,6 +15,11 @@ public class FeedBackStepDefinitions {
 
 	public FeedBackStepDefinitions( FeedBackEndpoints feedback) {
 		this.feedback = feedback;
+	}
+	
+	@Given("The User sets the base URL as {string} for Feedback")
+	public void the_user_sets_the_base_url_as_for_Feedback(String baseUrl) {
+    	RestAssured.baseURI = baseUrl;
 	}
 
 	@When("The User sends a POST request for FeedBack with the request body from {string} and captures the response body")

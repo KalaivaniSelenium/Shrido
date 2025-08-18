@@ -4,8 +4,10 @@ import java.io.IOException;
 
 import com.thinktimetechno.Shrido.endpoints.NotificationEndpoints;
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.RestAssured;
 
 public class NotificationStepDefinitions {
 
@@ -15,6 +17,10 @@ public class NotificationStepDefinitions {
 		this.notification = notification;
 	}
 
+	@Given("The User sets the base URL as {string} for Notification")
+		public void The_User_sets_the_base_URL_as_for_Notification(String baseUrl) {
+	    	RestAssured.baseURI = baseUrl;
+	} 	
 	@When("The User sends a POST request for Notification with the request body from {string} and captures the response body")
 	public void the_user_sends_a_post_request_for_notification_with_the_request_body_from_and_captures_the_response_body(
 			String jsonFile) throws IOException {

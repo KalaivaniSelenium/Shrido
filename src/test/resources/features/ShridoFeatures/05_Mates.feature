@@ -3,7 +3,7 @@ Feature: Mates Tests
 This feature includes Mates tests using RESTFul services
 
 	Background:
-	Given The User sets the base URL as "https://api-staging.shrido.com.au" for User
+	Given The User sets the base URL as "https://api-staging.shrido.com.au" for Mates
 	
 	@GetLatestFriends
 	Scenario: TC-01 Get Latest Friends

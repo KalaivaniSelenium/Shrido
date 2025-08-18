@@ -5,8 +5,10 @@ import java.io.IOException;
 import com.thinktimetechno.Shrido.endpoints.ReviewEndpoints;
 
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.RestAssured;
 
 public class ReviewStepDefinitions {
 
@@ -15,6 +17,11 @@ public class ReviewStepDefinitions {
 	public ReviewStepDefinitions(ReviewEndpoints review) {
 		this.review = review;
 	}
+	
+	@Given("The User sets the base URL as {string} for Review")
+	public void The_User_sets_the_base_URL_as_for_Review(String baseUrl) {
+    	RestAssured.baseURI = baseUrl;
+    }
 
 	@When("The User sends a POST request for Review with the request body from {string} and captures the response body")
 	public void the_user_sends_a_post_request_for_review_with_the_request_body_from_and_captures_the_response_body(
