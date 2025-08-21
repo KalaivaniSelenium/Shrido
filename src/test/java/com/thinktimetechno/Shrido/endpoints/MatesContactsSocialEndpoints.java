@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class MatesEndpoints extends BaseEndpoints{
+public class MatesContactsSocialEndpoints extends BaseEndpoints{
 
     private RequestSpecification requestSpecification;
     public Response result;
@@ -23,6 +23,15 @@ public class MatesEndpoints extends BaseEndpoints{
     	 requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
 	   
 	    switch (APIName) {
+	        case "Get Referral History":
+	            application_ENDPOINT_PATH = "/api/user/referral-history?page=0";
+	            break;
+	        case "Get Total Referrals":
+	            application_ENDPOINT_PATH = "/api/user/total-referral";
+	            break;
+	        case "Get User Total Points":
+	            application_ENDPOINT_PATH = "/api/user/total-points";
+	            break;
 	        case "Get Latest Friends":
 	            application_ENDPOINT_PATH = "/api/mate?page=0";
 	            break;
@@ -62,6 +71,9 @@ public class MatesEndpoints extends BaseEndpoints{
         try {
 
             switch (jsonFileName) {
+                case "Add Referral Code.json":
+                    application_ENDPOINT_PATH = "/api/user/add-referral";
+                    break;
                 case "Sync Contact.json":
                     application_ENDPOINT_PATH = "/api/mate/sync_contact";
                     break;
@@ -74,7 +86,6 @@ public class MatesEndpoints extends BaseEndpoints{
                 case "Favourite or Unfavourite friend.json":
                     application_ENDPOINT_PATH = "/api/mate/favourite";
                     break;
-                
                 case "User Block.json":
                     application_ENDPOINT_PATH = "/api/user_block/5"; // No body required
                     break;
@@ -96,7 +107,11 @@ public class MatesEndpoints extends BaseEndpoints{
                 String filePath = System.getProperty("user.dir") + "/src/test/resources/Payloads/MatesPayloads/" + jsonFileName;
                 String jsonContent = new String(Files.readAllBytes(Paths.get(filePath)));
                 JSONObject jsonObject = new JSONObject(jsonContent);
-                
+              
+                //Adding referral code
+                if (application_ENDPOINT_PATH.equals("/api/user/add-referral")) {
+                    jsonObject.put("referral_code", BaseEndpoints.affiliateCode);  
+                }
                 if (application_ENDPOINT_PATH.equals("/api/trip/notify_mates")) {
                     jsonObject.put("trip_id", BaseEndpoints.tripId);
         		}

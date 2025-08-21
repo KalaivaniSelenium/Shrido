@@ -10,11 +10,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class UserSettingsEndpoints extends BaseEndpoints{
+public class TravelSafetyEndpoints extends BaseEndpoints{
 
     private RequestSpecification requestSpecification;
     public Response result;
     public static String authToken;  
+    public static String dynamicMobile; 
     
     public void sendPostRequestWithPayload(String jsonFileName) throws IOException {
 
@@ -22,26 +23,20 @@ public class UserSettingsEndpoints extends BaseEndpoints{
       
         switch (jsonFileName) {
          
-            case "Driver Settings.json":
-                application_ENDPOINT_PATH = "/api/user_settings/driver";
-                break;
-            case "Passenger Settings.json":
-                application_ENDPOINT_PATH = "/api/user_settings/passenger";
-                break;
-            case "Notification Settings.json":
-                application_ENDPOINT_PATH = "/api/user_settings/notification";
-                break;
-            
+            case "Travel Safety.json":
+                application_ENDPOINT_PATH = "/api/user_settings/travel-safety";
+                break; 
+    
             default:
                 throw new IllegalArgumentException("Endpoint not defined for file: " + jsonFileName);
         }
-
         this.apiNameIdentifier = jsonFileName.replace(".json", "");
-	        // Prepare request
-	        requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
 
+        // Prepare request
+        requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
 
-            String filePath = System.getProperty("user.dir") + "/src/test/resources/Payloads/UserSettingsPayloads/"+ jsonFileName;
+       
+            String filePath = System.getProperty("user.dir") + "/src/test/resources/Payloads/TravelSafetyPayloads/"+ jsonFileName;
             String jsonContent = new String(Files.readAllBytes(Paths.get(filePath)));
             JSONObject jsonObject = new JSONObject(jsonContent);
 
@@ -49,41 +44,17 @@ public class UserSettingsEndpoints extends BaseEndpoints{
             result = requestSpecification
                     .body(jsonObject.toString())
                     .post(application_ENDPOINT_PATH);
-
+           
         // Print response
         System.out.println("Response: " + result.getBody().asPrettyString());
-
+        
     	}catch (Exception e) {
             String exceptionName = e.getClass().getSimpleName();
             FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
                                         exceptionName);
             throw e;
         }
-    	
-    }
-    
-    public Response sendGetRequest(String APIName) {
-    	try {
-    	 requestSpecification = getRequestWithJSONHeader(application_ENDPOINT_PATH);
-	   
-	    switch (APIName) {
-	        case "All settings":
-	            application_ENDPOINT_PATH = "/api/settings";
-	            break;       
-	    }
-	    this.apiNameIdentifier = APIName;
-
-	    return result = requestSpecification
-	    		       .get(application_ENDPOINT_PATH);
-    	}
-	    
-    	catch (Exception e) {
-            String exceptionName = e.getClass().getSimpleName();
-            FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
-                                        exceptionName);
-            throw e;
-        }
-	}
     }
     
    
+  }

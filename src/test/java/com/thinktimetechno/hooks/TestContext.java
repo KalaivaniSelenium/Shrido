@@ -1,7 +1,7 @@
 package com.thinktimetechno.hooks;
 
-import com.thinktimetechno.Shrido.endpoints.TripEndpoints;
-import com.thinktimetechno.Shrido.endpoints.UserEndpoints;
+
+import com.thinktimetechno.Shrido.endpoints.OnboardingEndpoints;
 import com.thinktimetechno.driver.DriverManager;
 import com.thinktimetechno.driver.TargetFactory;
 import com.thinktimetechno.utils.LogUtils;
@@ -11,8 +11,7 @@ import org.openqa.selenium.support.ThreadGuard;
 public class TestContext {
 
     private WebDriver driver;
-	private UserEndpoints userendpoint;
-	private TripEndpoints tripendpoint;
+	private OnboardingEndpoints userendpoint;
     public TestContext() {
 
     }

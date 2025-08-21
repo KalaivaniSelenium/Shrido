@@ -1,19 +1,20 @@
 package com.thinktimetechno.Shrido.runners;
 
-import com.thinktimetechno.hooks.CucumberListener;
-import com.thinktimetechno.utils.EmailSendUtils;
-import com.thinktimetechno.utils.FailedApiTracker;
-import com.thinktimetechno.utils.ZipUtils;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.thinktimetechno.hooks.CucumberListener;
+import com.thinktimetechno.utils.EmailSendUtils;
+import com.thinktimetechno.utils.FailedApiTracker;
+import com.thinktimetechno.utils.ZipUtils;
+
 @Test
 @CucumberOptions(
         features = "src/test/resources/features/ShridoFeatures",
-        glue = {"com.thinktimetechno.projects.website.Shrido.stepdefinitions",
+        glue = {"com.thinktimetechno.projects.website.Shrido1.stepdefinitions",
                 "com.thinktimetechno.hooks"},
         plugin = {"com.thinktimetechno.hooks.CucumberListener",
                 "pretty",

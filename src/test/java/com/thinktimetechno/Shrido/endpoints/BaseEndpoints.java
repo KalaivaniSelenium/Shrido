@@ -39,6 +39,8 @@ public class BaseEndpoints {
 	public static String tokenkey=null;
 	protected String application_ENDPOINT_PATH = "";
 	protected String apiNameIdentifier = "";
+	protected static String cardID = "";
+	protected static String customerID = "";
 	
 	//From the Shrido registration API
 	public static String inheritAuthToken;
@@ -47,10 +49,12 @@ public class BaseEndpoints {
     public static int userId;
     public static String affiliateCode;
     public static String email;
+    public static String dynamicMobile;
     
     //From the Shrido Trip creation API
     public static int tripId;
     public static int request_tripId;
+    public static String tripStartDate;
     
     
       //	protected final String base_url = "https://reqres.in/api/users";

@@ -30,18 +30,18 @@ public class ReviewEndpoints extends BaseEndpoints{
 	            break;
 	            
 	    }
-
+	    this.apiNameIdentifier = APIName;
 	    return result = requestSpecification
 	    		        .get(application_ENDPOINT_PATH);
     	}
     	
     	
-	    catch (Exception e) {
-		    String exceptionName = e.getClass().getSimpleName();
-		    FailedApiTracker.logFailure(application_ENDPOINT_PATH, exceptionName);
-		    System.err.println("Error occurred while sending GET request for: " + APIName);
-		    throw e;
-    }
+    	catch (Exception e) {
+            String exceptionName = e.getClass().getSimpleName();
+            FailedApiTracker.logFailure(apiNameIdentifier != null ? apiNameIdentifier : application_ENDPOINT_PATH,
+                                        exceptionName);
+            throw e;
+        }
 	}
     
     public void sendPostRequestWithPayload(String jsonFileName) throws IOException {
