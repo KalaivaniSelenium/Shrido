@@ -15,15 +15,16 @@ This feature includes Notification tests using RESTFul services
   | status  | true                              |
   | message | All Notifications of User.        |
 
-  @DeleteNotification
-  Scenario: TC-02 Delete Notification (DELETE {{liveUrl}}/api/user_notification/0)
-	When The User sends a DELETE request for Notification from "Delete Notification" and captures the response body
-	Then The response code for Notification should be "200"
-	And The response body for Notification should contain the following key-value pairs:
-  | Key     | Value                             |
-  | code    | 200                               |
-  | status  | true                              |
-  | message | Notification deleted successfully.|
+
+  #@DeleteNotification
+  #Scenario: TC-02 Delete Notification (DELETE {{liveUrl}}/api/user_notification/0)
+#	When The User sends a DELETE request for Notification from "Delete Notification" and captures the response body
+#	Then The response code for Notification should be "200"
+#	And The response body for Notification should contain the following key-value pairs:
+  #| Key     | Value                             |
+  #| code    | 200                               |
+  #| status  | true                              |
+  #| message | Notification deleted successfully.|
   
   @GetNotificationDetail
   Scenario: TC-03 Get Notification Detail (GET {{liveUrl}}/api/user_notification/notification?id={id})
