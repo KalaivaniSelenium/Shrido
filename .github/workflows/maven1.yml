@@ -23,7 +23,7 @@ jobs:
     - name: Find Latest Extent Report Folder
       id: latest-report
       run: |
-        latest_folder=$(ls -td ExtentReports/SparkReport_* | head -1)
+        latest_folder=$(ls -td "ExtentReports"/SparkReport_* | head -1)
         echo "Latest report folder: $latest_folder"
         echo "folder_path=$latest_folder" >> $GITHUB_OUTPUT
 
@@ -40,8 +40,15 @@ jobs:
         CONFLUENCE_BASE_URL: "https://testautomation767.atlassian.net/wiki"
         CONFLUENCE_PAGE_ID: "327910"
       run: |
-        report_file=$(ls ${{ steps.latest-report.outputs.folder_path }}/*.html | head -1)
-        echo "Uploading $report_file to Confluence page ID ${CONFLUENCE_PAGE_ID}"
+        # Find the latest HTML report (handles spaces in folder names)
+        report_file=$(find "${{ steps.latest-report.outputs.folder_path }}" -type f -name "*.html" | head -1)
+
+        if [ -z "$report_file" ]; then
+          echo "❌ No HTML report found in ${{ steps.latest-report.outputs.folder_path }}"
+          exit 1
+        fi
+
+        echo "✅ Uploading $report_file to Confluence page ID ${CONFLUENCE_PAGE_ID}"
 
         curl -s -u "${CONFLUENCE_USER}:${CONFLUENCE_API_TOKEN}" \
           -X POST "${CONFLUENCE_BASE_URL}/rest/api/content/${CONFLUENCE_PAGE_ID}/child/attachment" \
