@@ -18,7 +18,7 @@ jobs:
         java-version: '17'
 
     - name: Run Maven Test
-      run: mvn test
+      run: mvn clean test
 
     - name: Find Latest Extent Report Folder
       id: latest-report
@@ -32,3 +32,19 @@ jobs:
       with:
         name: Latest-ExtentReport
         path: ${{ steps.latest-report.outputs.folder_path }}
+
+    - name: Upload Report to Confluence
+      env:
+        CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USER }}
+        CONFLUENCE_API_TOKEN: ${{ secrets.CONFLUENCE_API_TOKEN }}
+        CONFLUENCE_BASE_URL: "https://testautomation767.atlassian.net/wiki"
+        CONFLUENCE_PAGE_ID: "327910"
+      run: |
+        report_file=$(ls ${{ steps.latest-report.outputs.folder_path }}/*.html | head -1)
+        echo "Uploading $report_file to Confluence page ID ${CONFLUENCE_PAGE_ID}"
+
+        curl -s -u "${CONFLUENCE_USER}:${CONFLUENCE_API_TOKEN}" \
+          -X POST "${CONFLUENCE_BASE_URL}/rest/api/content/${CONFLUENCE_PAGE_ID}/child/attachment" \
+          -H "X-Atlassian-Token: no-check" \
+          -F "file=@${report_file}" \
+          -F "minorEdit=true"
