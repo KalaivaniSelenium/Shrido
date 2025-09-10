@@ -8,50 +8,56 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+      # Step 1: Checkout code
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: '17'
+      # Step 2: Set up JDK 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-    - name: Run Maven Test
-      run: mvn clean test
+      # Step 3: Run Maven Tests
+      - name: Run Maven Test
+        run: mvn clean test
 
-    - name: Find Latest Extent Report Folder
-      id: latest-report
-      run: |
-        latest_folder=$(ls -td "ExtentReports"/SparkReport_* | head -1)
-        echo "Latest report folder: $latest_folder"
-        echo "folder_path=$latest_folder" >> $GITHUB_OUTPUT
+      # Step 4: Find latest Extent Report folder
+      - name: Find Latest Extent Report Folder
+        id: latest-report
+        run: |
+          latest_folder=$(ls -td ExtentReports/SparkReport_* | head -1)
+          echo "Latest report folder: $latest_folder"
+          echo "folder_path=$latest_folder" >> $GITHUB_OUTPUT
 
-    - name: Upload HTML Report Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: Latest-ExtentReport
-        path: ${{ steps.latest-report.outputs.folder_path }}
+      # Step 5: Upload HTML report as artifact (optional)
+      - name: Upload HTML Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Latest-ExtentReport
+          path: ${{ steps.latest-report.outputs.folder_path }}
 
-    - name: Upload Report to Confluence
-      env:
-        CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USER }}
-        CONFLUENCE_API_TOKEN: ${{ secrets.CONFLUENCE_API_TOKEN }}
-        CONFLUENCE_BASE_URL: "https://testautomation767.atlassian.net/wiki"
-        CONFLUENCE_PAGE_ID: "327910"
-      run: |
-        # Find the latest HTML report (handles spaces in folder names)
-        report_file=$(find "${{ steps.latest-report.outputs.folder_path }}" -type f -name "*.html" | head -1)
+      # Step 6: Upload report to Confluence
+      - name: Upload Report to Confluence
+        env:
+          CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USER }}
+          CONFLUENCE_API_TOKEN: ${{ secrets.CONFLUENCE_API_TOKEN }}
+          CONFLUENCE_BASE_URL: "https://testautomation767.atlassian.net/wiki"
+          CONFLUENCE_PAGE_ID: "327910"
+        run: |
+          # Find the latest HTML report (handles spaces in folder names)
+          report_file=$(find "${{ steps.latest-report.outputs.folder_path }}" -type f -name "*.html" | head -1)
+          
+          if [ -z "$report_file" ]; then
+            echo "❌ No HTML report found in ${{ steps.latest-report.outputs.folder_path }}"
+            exit 1
+          fi
 
-        if [ -z "$report_file" ]; then
-          echo "❌ No HTML report found in ${{ steps.latest-report.outputs.folder_path }}"
-          exit 1
-        fi
+          echo "✅ Uploading $report_file to Confluence page ID ${CONFLUENCE_PAGE_ID}"
 
-        echo "✅ Uploading $report_file to Confluence page ID ${CONFLUENCE_PAGE_ID}"
-
-        curl -s -u "${CONFLUENCE_USER}:${CONFLUENCE_API_TOKEN}" \
-          -X POST "${CONFLUENCE_BASE_URL}/rest/api/content/${CONFLUENCE_PAGE_ID}/child/attachment" \
-          -H "X-Atlassian-Token: no-check" \
-          -F "file=@${report_file}" \
-          -F "minorEdit=true"
+          curl -u "${CONFLUENCE_USER}:${CONFLUENCE_API_TOKEN}" \
+            -X POST "${CONFLUENCE_BASE_URL}/rest/api/content/${CONFLUENCE_PAGE_ID}/child/attachment" \
+            -H "X-Atlassian-Token: no-check" \
+            -F "file=@${report_file}" \
+            -F "minorEdit=true"
