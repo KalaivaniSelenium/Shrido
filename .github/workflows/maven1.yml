@@ -37,27 +37,3 @@ jobs:
         with:
           name: Latest-ExtentReport
           path: ${{ steps.latest-report.outputs.folder_path }}
-
-      # Step 6: Upload report to Confluence
-      - name: Upload Report to Confluence
-        env:
-          CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USER }}
-          CONFLUENCE_API_TOKEN: ${{ secrets.CONFLUENCE_API_TOKEN }}
-          CONFLUENCE_BASE_URL: "https://testautomation767.atlassian.net/wiki"
-          CONFLUENCE_PAGE_ID: "327910"
-        run: |
-          # Find the latest HTML report (handles spaces in folder names)
-          report_file=$(find "${{ steps.latest-report.outputs.folder_path }}" -type f -name "*.html" | head -1)
-          
-          if [ -z "$report_file" ]; then
-            echo "❌ No HTML report found in ${{ steps.latest-report.outputs.folder_path }}"
-            exit 1
-          fi
-
-          echo "✅ Uploading $report_file to Confluence page ID ${CONFLUENCE_PAGE_ID}"
-
-          curl -u "${CONFLUENCE_USER}:${CONFLUENCE_API_TOKEN}" \
-            -X POST "${CONFLUENCE_BASE_URL}/rest/api/content/${CONFLUENCE_PAGE_ID}/child/attachment" \
-            -H "X-Atlassian-Token: no-check" \
-            -F "file=@${report_file}" \
-            -F "minorEdit=true"
